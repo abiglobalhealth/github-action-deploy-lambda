@@ -12,12 +12,16 @@ inputs:
   AWS_ACCESS_KEY_ID_CHINA: {description: china aws access key id, required: true}
   AWS_SECRET_ACCESS_KEY_CHINA: {description: china aws secret access key, required: true}
 runs:
-  using: composite
+  on: ubuntu-latest
+  strategy:
+      matrix:
+        node-version: [10.x, 12.x, 14.x, 15.x]
   steps:
     - uses: actions/checkout@v3
-    - name: deploy using Node.js
-      shell: bash
-      # language=bash
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
       run: |
         node --version
         npm --version

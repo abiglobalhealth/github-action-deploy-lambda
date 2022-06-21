@@ -14,13 +14,14 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: deploy
+    - uses: actions/checkout@v3
+    - name: deploy using Node.js
       shell: bash
       # language=bash
       run: |
         node --version
         npm --version
-        npm ci 
+        npm ci
         yarn test
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials

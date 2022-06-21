@@ -19,6 +19,7 @@ runs:
       # language=bash
       run: |
         cd spacebar/spacebar
+        yarn run build
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials
         [devProfile]

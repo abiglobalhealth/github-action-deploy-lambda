@@ -18,8 +18,7 @@ runs:
       shell: bash
       # language=bash
       run: |
-        cd spacebar/spacebar
-        yarn run build
+        npm ci && npm test
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials
         [devProfile]
@@ -39,6 +38,5 @@ runs:
         aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_CHINA}}
         aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_CHINA}}
         EOF
-        yarn --frozen-lockfile
         yarn deploy:${{inputs.environment}}
         rm ~/.aws/credentials

@@ -1,0 +1,43 @@
+name: deploy-
+description: Deploys the selected environment
+branding: {color: blue, icon: box}
+inputs:
+  environment: {description: environment name, required: true}
+  AWS_ACCESS_KEY_ID_DEV: {description: dev aws access key id, required: true}
+  AWS_SECRET_ACCESS_KEY_DEV: {description: dev aws secret access key, required: true}
+  AWS_ACCESS_KEY_ID_TEST: {description: test aws access key id, required: true}
+  AWS_SECRET_ACCESS_KEY_TEST: {description: test aws secret access key, required: true}
+  AWS_ACCESS_KEY_ID_PROD: {description: prod aws access key id, required: true}
+  AWS_SECRET_ACCESS_KEY_PROD: {description: prod aws secret access key, required: true}
+  AWS_ACCESS_KEY_ID_CHINA: {description: china aws access key id, required: true}
+  AWS_SECRET_ACCESS_KEY_CHINA: {description: china aws secret access key, required: true}
+runs:
+  using: composite
+  steps:
+    - name: deploy
+      shell: bash
+      # language=bash
+      run: |
+        mkdir -p ~/.aws
+        cat << EOF > ~/.aws/credentials
+        [devProfile]
+        region=eu-west-1
+        aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_DEV}}
+        aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_DEV}}
+        [testProfile]
+        region=eu-west-1
+        aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_TEST}}
+        aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_TEST}}
+        [prodProfile]
+        region=eu-west-1
+        aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_PROD}}
+        aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_PROD}}
+        [chinaProfile]
+        region=cn-north-1
+        aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_CHINA}}
+        aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_CHINA}}
+        EOF
+        yarn --frozen-lockfile
+        # remove -canary suffix in case it exists
+        yarn deploy:${{inputs.environment}}
+        rm ~/.aws/credentials

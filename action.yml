@@ -18,7 +18,12 @@ runs:
       shell: bash
       # language=bash
       run: |
-        npm ci && npm test
+        nvm install lts/*
+        node --version
+        npm --version
+        nvm --version
+        npm ci 
+        yarn test
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials
         [devProfile]
@@ -38,5 +43,5 @@ runs:
         aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_CHINA}}
         aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_CHINA}}
         EOF
-        yarn deploy:${{inputs.environment}}
+        yarn sls deploy -s ${{inputs.environment}} --aws-s3-accelerate
         rm ~/.aws/credentials

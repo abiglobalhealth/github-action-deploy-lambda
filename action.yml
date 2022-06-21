@@ -20,7 +20,6 @@ runs:
       run: |
         node --version
         npm --version
-        nvm --version
         npm ci 
         yarn test
         mkdir -p ~/.aws

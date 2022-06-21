@@ -1,4 +1,4 @@
-name: deploy-
+name: deploy-lambda
 description: Deploys the selected environment
 branding: {color: blue, icon: box}
 inputs:
@@ -18,6 +18,7 @@ runs:
       shell: bash
       # language=bash
       run: |
+        cd spacebar/spacebar
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials
         [devProfile]
@@ -38,6 +39,5 @@ runs:
         aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_CHINA}}
         EOF
         yarn --frozen-lockfile
-        # remove -canary suffix in case it exists
         yarn deploy:${{inputs.environment}}
         rm ~/.aws/credentials

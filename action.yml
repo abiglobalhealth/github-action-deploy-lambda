@@ -19,8 +19,10 @@ inputs:
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
-    - name: 📺 Test lambda using Node.js ${{ inputs.node-version }}
+    - name: Checkout the code
+      uses: actions/checkout@v3
+
+    - name: ⚙️ Configure Node.js ${{ inputs.node-version }} and run tests
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
@@ -29,6 +31,7 @@ runs:
         npm --version
         npm ci
         yarn test
+
     - name: 📡 Deploy the lambda function
       uses: actions/setup-node@v3
       with:

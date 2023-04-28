@@ -1,32 +1,39 @@
 name: deploy-lambda
 description: Deploys the selected environment
-branding: {color: blue, icon: box}
+branding: { color: blue, icon: box }
 inputs:
-  environment: {description: environment name, required: true}
-  AWS_ACCESS_KEY_ID_DEV: {description: dev aws access key id, required: true}
-  AWS_SECRET_ACCESS_KEY_DEV: {description: dev aws secret access key, required: true}
-  AWS_ACCESS_KEY_ID_TEST: {description: test aws access key id, required: true}
-  AWS_SECRET_ACCESS_KEY_TEST: {description: test aws secret access key, required: true}
-  AWS_ACCESS_KEY_ID_PROD: {description: prod aws access key id, required: true}
-  AWS_SECRET_ACCESS_KEY_PROD: {description: prod aws secret access key, required: true}
-  AWS_ACCESS_KEY_ID_CHINA: {description: china aws access key id, required: true}
-  AWS_SECRET_ACCESS_KEY_CHINA: {description: china aws secret access key, required: true}
+  environment: { description: environment name, required: true }
+  node-version: {
+    description: Node version to test the lambda,
+    required: false,
+    default: 16
+  }
+  AWS_ACCESS_KEY_ID_DEV: { description: dev aws access key id, required: true }
+  AWS_SECRET_ACCESS_KEY_DEV: { description: dev aws secret access key, required: true }
+  AWS_ACCESS_KEY_ID_TEST: { description: test aws access key id, required: true }
+  AWS_SECRET_ACCESS_KEY_TEST: { description: test aws secret access key, required: true }
+  AWS_ACCESS_KEY_ID_PROD: { description: prod aws access key id, required: true }
+  AWS_SECRET_ACCESS_KEY_PROD: { description: prod aws secret access key, required: true }
+  AWS_ACCESS_KEY_ID_CHINA: { description: china aws access key id, required: true }
+  AWS_SECRET_ACCESS_KEY_CHINA: { description: china aws secret access key, required: true }
 runs:
-  on: ubuntu-latest
-  strategy:
-      matrix:
-        node-version: [10.x, 12.x, 14.x, 15.x]
+  using: composite
   steps:
     - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: 📺 Test lambda using Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: ${{ inputs.node-version }}
       run: |
         node --version
         npm --version
         npm ci
         yarn test
+    - name: 📡 Deploy the lambda function
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+      run: |
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials
         [devProfile]

@@ -6,6 +6,9 @@ runs the tests and then deploys the lambda.
 
 This Action runs the tests defined in the `package.json` command `test`.
 
+For the deployment the **serverless** framework should be used to develop
+the lamda. The Action deploys with `sls` command.
+
 ## Variables
 The action reads the following variables:
 - environment: Environment in which the lambda will be deployed.

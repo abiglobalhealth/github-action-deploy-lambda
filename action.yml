@@ -6,7 +6,7 @@ inputs:
   node-version: {
     description: Node version to test the lambda,
     required: false,
-    default: 16
+    default: '16'
   }
   AWS_ACCESS_KEY_ID_DEV: { description: dev aws access key id, required: true }
   AWS_SECRET_ACCESS_KEY_DEV: { description: dev aws secret access key, required: true }
@@ -32,7 +32,7 @@ runs:
     - name: 📡 Deploy the lambda function
       uses: actions/setup-node@v3
       with:
-        node-version: 16
+        node-version: ${{ inputs.node-version }}
       run: |
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials

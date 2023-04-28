@@ -22,6 +22,13 @@ runs:
     - name: Checkout the code
       uses: actions/checkout@v3
 
+    - name: "Get deploy keys for Abi dependencies"
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: |
+          ${{ secrets.ABI_DATABASE_GATEWAY_DEPLOY_KEY }}
+          ${{ secrets.LIBBY_DEPLOY_KEY }}
+
     - name: ⚙️ Configure Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v3
       with:

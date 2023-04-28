@@ -22,10 +22,13 @@ runs:
     - name: Checkout the code
       uses: actions/checkout@v3
 
-    - name: ⚙️ Configure Node.js ${{ inputs.node-version }} and run tests
+    - name: ⚙️ Configure Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ inputs.node-version }}
+
+    - name: 📺 Run tests
+      shell: bash
       run: |
         node --version
         npm --version
@@ -33,9 +36,7 @@ runs:
         yarn test
 
     - name: 📡 Deploy the lambda function
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ inputs.node-version }}
+      shell: bash
       run: |
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials

@@ -16,6 +16,8 @@ inputs:
   AWS_SECRET_ACCESS_KEY_PROD: { description: prod aws secret access key, required: true }
   AWS_ACCESS_KEY_ID_CHINA: { description: china aws access key id, required: true }
   AWS_SECRET_ACCESS_KEY_CHINA: { description: china aws secret access key, required: true }
+  ABI_DATABASE_GATEWAY_DEPLOY_KEY: { description: Private database gateway repository deploy key, required: true }
+  LIBBY_DEPLOY_KEY: { description: Private libby repository deploy key, required: true }
 runs:
   using: composite
   steps:
@@ -26,8 +28,8 @@ runs:
       uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: |
-          ${{ secrets.ABI_DATABASE_GATEWAY_DEPLOY_KEY }}
-          ${{ secrets.LIBBY_DEPLOY_KEY }}
+          ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY }}
+          ${{ inputs.LIBBY_DEPLOY_KEY }}
 
     - name: ⚙️ Configure Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v3

@@ -39,15 +39,15 @@ runs:
         cache: npm
         registry-url: https://npm.pkg.github.com
 
-#    - name: 📺 Run tests
-#      shell: bash
-#      run: |
-#        node --version
-#        npm --version
-#        npm ci
+    - name: 📺 Install dependencies
+      shell: bash
+      run: |
+        node --version
+        npm --version
+        npm ci
 #        npm run test
-#      env:
-#        NODE_AUTH_TOKEN: ${{inputs.NPM_PACKAGES_TOKEN}}
+      env:
+        NODE_AUTH_TOKEN: ${{inputs.NPM_PACKAGES_TOKEN}}
 
     - name: 📡 Deploy the lambda function
       shell: bash

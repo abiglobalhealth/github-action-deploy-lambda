@@ -17,6 +17,7 @@ inputs:
   AWS_ACCESS_KEY_ID_CHINA: { description: china aws access key id, required: true }
   AWS_SECRET_ACCESS_KEY_CHINA: { description: china aws secret access key, required: true }
   ABI_DATABASE_GATEWAY_DEPLOY_KEY: { description: Private database gateway repository deploy key, required: true }
+  ABI_AI_GATEWAY_KEY: { description: Private ai gateway repository deploy key, required: true }
   LIBBY_DEPLOY_KEY: { description: Private libby repository deploy key, required: true }
   NPM_PACKAGES_TOKEN: { description: Token to get packages from private github repos, required: false, default: '' }
 runs:
@@ -31,6 +32,7 @@ runs:
         ssh-private-key: |
           ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY }}
           ${{ inputs.LIBBY_DEPLOY_KEY }}
+          ${{ inputs.ABI_AI_GATEWAY_KEY }}
 
     - name: ⚙️ Configure Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v3

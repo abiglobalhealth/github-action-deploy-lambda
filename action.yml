@@ -27,7 +27,7 @@ runs:
       uses: actions/checkout@v3
 
     - name: "Get deploy keys for Abi dependencies"
-      if: ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY != '' && inputs.LIBBY_DEPLOY_KEY != '' && inputs.ABI_AI_GATEWAY_KEY != '' }}
+      if: ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY != '' || inputs.LIBBY_DEPLOY_KEY != '' || inputs.ABI_AI_GATEWAY_KEY != '' }}
       uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: |

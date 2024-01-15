@@ -3,6 +3,7 @@ description: Deploys the selected environment
 branding: { color: blue, icon: box }
 inputs:
   environment: { description: environment name, required: true }
+  tag: { description: tag to deploy, required: false }
   node-version: {
     description: Node version to test the lambda,
     required: false,
@@ -24,7 +25,16 @@ runs:
   using: composite
   steps:
     - name: Checkout the code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+      with:
+        fetch-tags: true
+        ref: ${{ inputs.tag }}
+        
+    - name: Tag info
+      shell: bash
+      run: |
+        echo "Current tag: ${{ github.ref }}"
+        echo "Input tag: ${{ inputs.tag }}"
 
     - name: "Get deploy keys for Abi dependencies"
       if: ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY != '' || inputs.LIBBY_DEPLOY_KEY != '' || inputs.ABI_AI_GATEWAY_KEY != '' }}

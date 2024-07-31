@@ -3,6 +3,7 @@ description: Deploys the selected environment
 branding: { color: blue, icon: box }
 inputs:
   environment: { description: environment name, required: true }
+  region: { description: region to deploy, required: false, default: 'eu-west-1' }
   tag: { description: tag to deploy, required: false }
   node-version: {
     description: Node version to test the lambda,
@@ -29,7 +30,7 @@ runs:
       with:
         fetch-tags: true
         ref: ${{ inputs.tag }}
-        
+
     - name: Tag info
       shell: bash
       run: |
@@ -84,5 +85,5 @@ runs:
         aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_CHINA}}
         aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_CHINA}}
         EOF
-        yarn sls deploy -s ${{inputs.environment}} --aws-s3-accelerate
+        yarn sls deploy -s ${{inputs.environment}} --aws-s3-accelerate --param="region=${{inputs.region}}"
         rm ~/.aws/credentials

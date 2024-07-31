@@ -85,5 +85,5 @@ runs:
         aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_CHINA}}
         aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_CHINA}}
         EOF
-        yarn sls deploy -s ${{inputs.environment}} --aws-s3-accelerate --params="region=${{inputs.region}}"
+        yarn sls deploy -s ${{inputs.environment}} --aws-s3-accelerate --param="region=${{inputs.region}}"
         rm ~/.aws/credentials

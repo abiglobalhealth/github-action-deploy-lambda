@@ -22,6 +22,7 @@ inputs:
   ABI_AI_GATEWAY_KEY: { description: Private ai gateway repository deploy key, required: true }
   LIBBY_DEPLOY_KEY: { description: Private libby repository deploy key, required: true }
   NPM_PACKAGES_TOKEN: { description: Token to get packages from private github repos, required: false, default: '' }
+  BABELBOT_DEPLOY_KEY: { description: Private babelbot repository deploy key, required: false, default: '' }
 runs:
   using: composite
   steps:
@@ -38,13 +39,14 @@ runs:
         echo "Input tag: ${{ inputs.tag }}"
 
     - name: "Get deploy keys for Abi dependencies"
-      if: ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY != '' || inputs.LIBBY_DEPLOY_KEY != '' || inputs.ABI_AI_GATEWAY_KEY != '' }}
+      if: ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY != '' || inputs.LIBBY_DEPLOY_KEY != '' || inputs.ABI_AI_GATEWAY_KEY != '' || inputs.BABELBOT_DEPLOY_KEY != '' }}
       uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: |
           ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY }}
           ${{ inputs.LIBBY_DEPLOY_KEY }}
           ${{ inputs.ABI_AI_GATEWAY_KEY }}
+          ${{ inputs.BABELBOT_DEPLOY_KEY }}
 
     - name: ⚙️ Configure Node.js ${{ inputs.node-version }}
       uses: actions/setup-node@v3

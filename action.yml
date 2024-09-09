@@ -71,15 +71,15 @@ runs:
         mkdir -p ~/.aws
         cat << EOF > ~/.aws/credentials
         [devProfile]
-        region=eu-west-1
+        region=${{inputs.region}}
         aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_DEV}}
         aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_DEV}}
         [testProfile]
-        region=eu-west-1
+        region=${{inputs.region}}
         aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_TEST}}
         aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_TEST}}
         [prodProfile]
-        region=eu-west-1
+        region=${{inputs.region}}
         aws_access_key_id=${{inputs.AWS_ACCESS_KEY_ID_PROD}}
         aws_secret_access_key=${{inputs.AWS_SECRET_ACCESS_KEY_PROD}}
         [chinaProfile]
@@ -89,3 +89,5 @@ runs:
         EOF
         yarn sls deploy -s ${{inputs.environment}} --aws-s3-accelerate --param="region=${{inputs.region}}"
         rm ~/.aws/credentials
+      with:
+          region: ${{ inputs.region || 'eu-west-1' }}

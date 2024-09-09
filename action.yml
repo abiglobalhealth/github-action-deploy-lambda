@@ -89,5 +89,3 @@ runs:
         EOF
         yarn sls deploy -s ${{inputs.environment}} --aws-s3-accelerate --param="region=${{inputs.region}}"
         rm ~/.aws/credentials
-      with:
-          region: ${{ inputs.region || 'eu-west-1' }}

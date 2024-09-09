@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/abiglobalhealth/github-action-deploy-lambda/compare/v0.1.0...v0.1.1) (2024-09-09)
+
+
+### Bug Fixes
+
+* solve sintax error ([#16](https://github.com/abiglobalhealth/github-action-deploy-lambda/issues/16)) ([fe019de](https://github.com/abiglobalhealth/github-action-deploy-lambda/commit/fe019dea6aac3e933a58ed7fde2828bfd84d4166))
+
 ## [0.1.0](https://github.com/abiglobalhealth/github-action-deploy-lambda/compare/v0.0.5...v0.1.0) (2024-09-09)
 
 

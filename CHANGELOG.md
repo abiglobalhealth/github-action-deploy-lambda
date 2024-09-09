@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.0](https://github.com/abiglobalhealth/github-action-deploy-lambda/compare/v0.1.1...v0.2.0) (2024-09-09)
+
+
+### Features
+
+* **Serverless:** remove --aws-s3-accelerate in serverless deploy (it is not allow in all aws regions) ([#18](https://github.com/abiglobalhealth/github-action-deploy-lambda/issues/18)) ([894a4c3](https://github.com/abiglobalhealth/github-action-deploy-lambda/commit/894a4c37738cce3f69f888041691fc879ee425ad))
+
 ## [0.1.1](https://github.com/abiglobalhealth/github-action-deploy-lambda/compare/v0.1.0...v0.1.1) (2024-09-09)
 
 

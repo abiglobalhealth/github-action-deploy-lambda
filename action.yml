@@ -8,7 +8,7 @@ inputs:
   node-version: {
     description: Node version to test the lambda,
     required: false,
-    default: '16'
+    default: '22'
   }
   AWS_ACCESS_KEY_ID_DEV: { description: dev aws access key id, required: true }
   AWS_SECRET_ACCESS_KEY_DEV: { description: dev aws secret access key, required: true }
@@ -27,7 +27,7 @@ runs:
   using: composite
   steps:
     - name: Checkout the code
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
       with:
         fetch-tags: true
         ref: ${{ inputs.tag }}
@@ -40,7 +40,7 @@ runs:
 
     - name: "Get deploy keys for Abi dependencies"
       if: ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY != '' || inputs.LIBBY_DEPLOY_KEY != '' || inputs.ABI_AI_GATEWAY_KEY != '' || inputs.BABELBOT_DEPLOY_KEY != '' }}
-      uses: webfactory/ssh-agent@v0.7.0
+      uses: webfactory/ssh-agent@v0.10.0
       with:
         ssh-private-key: |
           ${{ inputs.ABI_DATABASE_GATEWAY_DEPLOY_KEY }}
@@ -49,7 +49,7 @@ runs:
           ${{ inputs.BABELBOT_DEPLOY_KEY }}
 
     - name: ⚙️ Configure Node.js ${{ inputs.node-version }}
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v6
       with:
         node-version: ${{ inputs.node-version }}
         cache: npm

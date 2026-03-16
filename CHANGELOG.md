@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.0](https://github.com/abiglobalhealth/github-action-deploy-lambda/compare/v0.2.0...v0.3.0) (2026-03-16)
+
+
+### Features
+
+* update dependencies ([#20](https://github.com/abiglobalhealth/github-action-deploy-lambda/issues/20)) ([d838906](https://github.com/abiglobalhealth/github-action-deploy-lambda/commit/d8389068f543bcdb1236a8b1aa8fd871c5bce77e))
+
 ## [0.2.0](https://github.com/abiglobalhealth/github-action-deploy-lambda/compare/v0.1.1...v0.2.0) (2024-09-09)
 
 

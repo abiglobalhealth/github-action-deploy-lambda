@@ -1,6 +1,6 @@
 {
   "name": "github-action-deploy-lambda",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Github Action to deploy a lambda function",
   "author": "ABI Global Health",
   "license": "ISC",
